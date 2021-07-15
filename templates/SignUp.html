@@ -35,49 +35,10 @@
 				</div>
 				<div class="form-row-last">
 					<input type="submit" name="register" class="register" value="Register">
-					<p>Or<a href="Login.html">Sign in</a></p>
+					<p>Or<a href="{{ url_for('login') }}">Sign in</a></p>
 				</div>
 			</form>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-	<script>
-		// just for the demos, avoids form submit
-		jQuery.validator.setDefaults({
-		  	debug: true,
-		  	success:  function(label){
-        		label.attr('id', 'valid');
-   		 	},
-		});
-		$( "#myform" ).validate({
-		  	rules: {
-			    your_email: {
-			      	required: true,
-			      	email: true
-			    },
-			    password: "required",
-		    	comfirm_password: {
-		      		equalTo: "#password"
-		    	}
-		  	},
-		  	messages: {
-		  		username: {
-		  			required: "Please enter an username"
-		  		},
-		  		your_email: {
-		  			required: "Please provide an email"
-		  		},
-		  		password: {
-	  				required: "Please provide a password"
-		  		},
-		  		comfirm_password: {
-		  			required: "Please provide a password",
-		      		equalTo: "Wrong Password"
-		    	}
-		  	}
-		});
-	</script>
 </body>
 </html>
