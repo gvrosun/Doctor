@@ -1,34 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+
 <head>
-	<meta charset="utf-8">
 	<title>Sign Up</title>
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- Main Style Css -->
-    <link rel="stylesheet" href="../static/css/signup_style.css"/>
 </head>
 <body class="form-v7">
+
 	<div class="page-content">
 		<div class="form-v7-content">
 			<div class="form-left">
 				<img src="../static/images/form-v7.jpg" alt="form">
 				<p class="text-1">Sign Up</p>
-
 			</div>
 			<form class="form-detail" method="post" id="myform">
                 {{ form.hidden_tag() }}
 				<div class="form-row">
 					<label for="username">{{ form.username.label }}</label>
                     {{ form.username(class="input-text") }}
+                    {% with message = get_flashed_messages() %}
+                        {% if message and 'username' in message %}
+                            <strong style="color:#d20000">Username already taken!</strong>
+                        {% endif %}
+                    {% endwith %}
+
 				</div>
 				<div class="form-row">
 					<label for="your_email">{{ form.email.label }}</label>
                     {{ form.email(class="input-text") }}
+                    {% with message = get_flashed_messages() %}
+                        {% if message and 'username' in message %}
+                            <strong style="color:#d20000">Email already registered!</strong>
+                        {% endif %}
+                    {% endwith %}
 				</div>
 				<div class="form-row">
 					<label for="password">{{ form.password.label }}</label>
                     {{ form.password(class="input-text") }}
+                    {% with message = get_flashed_messages() %}
+                        {% if message and 'username' in message %}
+                            <strong style="color:#d20000">Please provide strong password!</strong>
+                        {% endif %}
+                    {% endwith %}
 				</div>
 				<div class="form-row">
 					<label for="comfirm_password">{{ form.confirm.label }}</label>
@@ -47,5 +59,5 @@
 			</form>
 		</div>
 	</div>
-</body>
-</html>
+
+{% endblock %}

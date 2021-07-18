@@ -1,88 +1,61 @@
-<html>
+{% extends "base.html" %}
+{% block content %}
+
 <head>
-	<meta charset="utf-8">
 	<title>Doctor Info</title>
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
-	<link rel="stylesheet" href="../static/css/pt_style.css">
 </head>
-<body>
-	<div class="container-fluid px-1 py-5 mx-auto">
+
+	<div class="body1 container-fluid px-1 py-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
             <h3>Request a Demo</h3>
             <div class="card">
                 <h5 class="text-center mb-4">Powering world-class companies</h5>
-                <form class="form-card" onsubmit="event.preventDefault()">
+                <form class="form-card" method="post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Enter your first name" onblur="validate(1)"> </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label> <input type="text" id="lname" name="lname" placeholder="Enter your last name" onblur="validate(2)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.first_name.label }}<span class="text-danger"> *</span></label> {{ form.first_name(placeholder="Enter your first name") }} </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.last_name.label }}<span class="text-danger"> *</span></label> {{ form.last_name(placeholder="Enter your last name") }} </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Loaction<span class="text-danger"> *</span></label> <input type="text" id="loc" name="loc" placeholder="Enter your Location" onblur="validate(3)"> </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Zip code<span class="text-danger"> *</span></label> <input type="text" id="zip" name="zip" placeholder="Zip code" onblur="validate(4)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.address.label }}<span class="text-danger"> *</span></label> {{ form.address(placeholder="Enter your Location") }} </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.zip_code.label }}<span class="text-danger"> *</span></label> {{ form.zip_code(placeholder="Zip code") }} </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Phone Number<span class="text-danger"> *</span></label> <input type="text" id="ph" name="ph" placeholder="Enter your Phone number" onblur="validate(5)"> </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nickname<span class="text-danger"> *</span></label> <input type="text" id="nik" name="nik" placeholder="Your Nickname" onblur="validate(6)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.phone_number.label }}<span class="text-danger"> *</span></label> {{ form.phone_number(placeholder="Enter your Phone number") }} </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.nickname.label }}<span class="text-danger"> *</span></label> {{ form.nickname(placeholder="Your Nickname") }} </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                    	<div class="radio"><label class="form-control-label px-3">Gender<span class="text-danger"> *</span></label>
-										<input type="radio" name="Male" value="Male" checked class="radio-1"> Male
-  										<input type="radio" name="Female" value="Female">Female
-									</div>
-                    </div><br>
+                    	<div class="radio"><label class="form-control-label px-3">{{ form.gender.label }}<span class="text-danger"> *</span></label>
+                            {{ form.gender() }}
+                        </div>
+                    </div>
                     <div class="row justify-content-between text-left">
 						<div class="form-holder form-holder-2" style="padding-left: 2%;">
-										<label for="date" class="special-label">Date of Birth:</label>
-										<select name="year" id="byear">
-											<option value="Year" disabled selected>Year</option>
-										</select>
-										<select name="month" id="month">
-											<option value="Month" disabled selected>Month</option>
-										        <option value="1">January</option>
-											<option value="2">February</option>
-											<option value="3">March</option>
-											<option value="4">April</option>
-											<option value="5">May</option>
-											<option value="6">June</option>
-											<option value="7">July</option>
-											<option value="8">August</option>
-											<option value="9">September</option>
-											<option value="10">October</option>
-											<option value="11">November</option>
-											<option value="12">December</option>
-										</select>
-										<select name="date" id="date">
-											<option value="Day" disabled selected>Day</option>
-										</select>
-									</div>
+                            <label for="date" class="special-label">{{ form.date_of_birth.label }}</label>
+                            {{ form.date_of_birth() }}
+                        </div>
                     </div><br>
 
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">RMP Number<span class="text-danger"> *</span></label> <input type="text" id="ph" name="ph" placeholder="Registered Medical Practitioner No." onblur="validate(5)"> </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Upload your RPM Certificate<span class="text-danger"> *</span></label> <input type="text" id="nik" name="nik" placeholder="Your Nickname" onblur="validate(6)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.rmp_number.label }}<span class="text-danger"> *</span></label> {{ form.rmp_number(placeholder="Registered Medical Practitioner No.") }} </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.certificate_file.label }}<span class="text-danger"> *</span></label> {{ form.certificate_file() }} </div>
                     </div>
 
-					<div class="row justify-content-between text-left">
-                    	<div class="radio"><label class="form-control-label px-3">How do you know about this application?<span class="text-danger"> *</span></label>
-										<input type="radio" name="yes" value="Yes" checked class="radio-1"> By Family/Friends
-  										<input type="radio" name="no" value="No"> Social Media
-  										<input type="radio" name="no" value="No"> Others
+                    <div class="row justify-content-between text-left">
+                    	<div class="radio"><label class="form-control-label px-3">{{ form.info_choice.label }}<span class="text-danger"> *</span></label>
+                            {{ form.info_choice() }}
 						</div>
-						<div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">If Others<span class="text-danger"> *</span></label> <input type="text" id="nik" name="nik" placeholder="" onblur="validate(6)"> </div>
+						<div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">{{ form.others.label }}<span class="text-danger"> *</span></label> {{ form.others(placeholder='others') }} </div>
 					</div>
+
                     <div class="row justify-content-end">
-                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">Request a demo</button> </div>
+                        <div class="form-group col-sm-6"> {{ form.submit(class="btn-block btn-primary") }} </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-</body>
-</html>
+
+{% endblock %}

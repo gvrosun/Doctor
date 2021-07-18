@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, SubmitField, StringField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError
+from wtforms import PasswordField, SubmitField, StringField, RadioField, BooleanField, TextAreaField, SelectField, FileField
 from wtforms.fields.html5 import EmailField, DateField, TelField
 from wtforms.validators import DataRequired, EqualTo, Length
+from mydoctor.model import User
 
 
 class LoginForm(FlaskForm):
@@ -15,7 +16,7 @@ class RegistrationForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired()])
     password = PasswordField('New Password', [
         DataRequired(),
-        EqualTo('confirm', message='Passwords must match')
+        EqualTo('confirm')
     ])
     confirm = PasswordField('Repeat Password', validators=[DataRequired()])
     choice = SelectField(u'WHO YOU ARE', choices=[(None, '-select-'), ('patient', 'Patient'), ('doctor', 'Doctor')], default=None)
@@ -23,11 +24,13 @@ class RegistrationForm(FlaskForm):
 
     def check_email(self, field):
         if User.query.filter_by(email=field.data).first():
-            raise ValidationError('Your email has been already registered!')
+            return False
+        return True
 
     def check_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Sorry, that username is taken!')
+            return False
+        return True
 
 
 class PatientProfileForm(FlaskForm):
@@ -47,4 +50,16 @@ class PatientProfileForm(FlaskForm):
 
 
 class DoctorProfileForm(FlaskForm):
-    pass
+    first_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('Last name', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    zip_code = StringField('Zip code', validators=[DataRequired()])
+    phone_number = TelField('Phone number', validators=[DataRequired()])
+    nickname = StringField('Nickname', validators=[DataRequired()])
+    gender = RadioField('Gender', choices=[('male', 'Male'), ('female', 'Female')], default='male')
+    date_of_birth = DateField('Date of Birth: ', validators=[DataRequired()])
+    rmp_number = StringField('RMP Number', validators=[DataRequired()])
+    certificate_file = FileField('Upload your RPM Certificate', validators=[DataRequired()])
+    info_choice = RadioField('How do you know about this Application?', choices=[('family', 'By family/friends'), ('social', 'By social media'), ('others', 'Others')])
+    others = StringField('If others')
+    submit = SubmitField('Submit')

@@ -1,0 +1,46 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../images/wall.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.hero-text a {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  font-size: 20px;
+  background-color: #ffff;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 25%;
+    font-weight: bold;
+  text-decoration: none;
+}
+
+.hero-text a:hover {
+    text-decoration: none;
+    background-color: #66CDAA;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}

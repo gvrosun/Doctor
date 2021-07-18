@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<head>
+    <title>Server Down :(</title>
+</head>
+
+    <div class="unicorn"></div>
+    <div class="container">
+        <div class="five-oh-oh"><h1>500 Error</h1></div>
+        <div class="warning">
+            <h2>"All those moments will be lost in time, like tears in rain."</h2>
+            <p>Server Error, Server down Try after some time...</p>
+            <a href="{{ url_for('index') }}">Please go back to Home page</a>
+        </div>
+    </div>
+
+{% endblock %}
