@@ -37,7 +37,7 @@
 					<label for="password">{{ form.password.label }}</label>
                     {{ form.password(class="input-text") }}
                     {% with message = get_flashed_messages() %}
-                        {% if message and 'username' in message %}
+                        {% if message and 'password' in message %}
                             <strong style="color:#d20000">Please provide strong password!</strong>
                         {% endif %}
                     {% endwith %}

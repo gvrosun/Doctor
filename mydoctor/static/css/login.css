@@ -1,4 +1,4 @@
-body {
+body10 {
   font-family: "Karla", sans-serif;
   background-color: #fff;
   min-height: 100vh; }
@@ -59,7 +59,7 @@ body {
       color: #b0adad; }
     .login-wrapper .form-control::placeholder {
       color: #b0adad; }
-  .login-wrapper .login-btn {
+  .login-wrapper .user-login-btn {
     padding: 13px 20px;
     background-color: #fdbb28;
     border-radius: 0;
@@ -67,10 +67,10 @@ body {
     font-weight: bold;
     color: #fff;
     margin-bottom: 14px; }
-    .login-wrapper .login-btn:hover {
+    .login-wrapper .user-login-btn:hover {
       border: 1px solid #fdbb28;
-      background-color: #fff;
-      color: #fdbb28; }
+      background-color: #097b1b;
+    }
   .login-wrapper a.forgot-password-link {
     color: #080808;
     font-size: 14px;

@@ -4,6 +4,7 @@ from flask_login import login_user, login_required, logout_user
 from mydoctor.model import User
 from werkzeug.utils import secure_filename
 from mydoctor.forms import LoginForm, RegistrationForm, PatientProfileForm, DoctorProfileForm
+import os
 
 
 @app.route('/')
@@ -14,6 +15,8 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    login_success = True
+    permission = False
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user.check_password(form.password) and user is not None:
@@ -25,11 +28,13 @@ def login():
                 next_page = url_for('doctor_profile')
 
             return redirect(next_page)
+        else:
+            login_success = False
+            return render_template('Login.html', form=form, permission=permission, login_success=login_success)
 
-    valid = False
     if request.args.get('next') is not None:
-        valid = True
-    return render_template('Login.html', form=form, valid=valid)
+        permission = True
+    return render_template('Login.html', form=form, permission=permission, login_success=login_success)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -79,10 +84,9 @@ def patient_profile():
 def doctor_profile():
     form = DoctorProfileForm()
     if form.validate_on_submit():
-        filename = secure_filename(form.file.data.filename)
-        form.file.data.save('uploads/' + filename)
-        # return redirect(url_for('upload'))
-        return redirect(url_for('doctor'))
+        if form.certificate_file.data:
+            filename = secure_filename(form.certificate_file.data.filename)
+            form.certificate_file.data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     return render_template('DoctorProfile.html', form=form)
 

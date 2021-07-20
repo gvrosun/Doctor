@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, SubmitField, StringField, RadioField, BooleanField, TextAreaField, SelectField, FileField
-from wtforms.fields.html5 import EmailField, DateField, TelField
-from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms import PasswordField, SubmitField, StringField, RadioField, BooleanField, TextAreaField, SelectField, \
+    FileField, EmailField, DateField, TelField
+from wtforms.validators import DataRequired, EqualTo, Length, regexp
 from mydoctor.model import User
 
 
@@ -19,7 +19,8 @@ class RegistrationForm(FlaskForm):
         EqualTo('confirm')
     ])
     confirm = PasswordField('Repeat Password', validators=[DataRequired()])
-    choice = SelectField(u'WHO YOU ARE', choices=[(None, '-select-'), ('patient', 'Patient'), ('doctor', 'Doctor')], default=None)
+    choice = SelectField(u'WHO YOU ARE', choices=[(None, '-select-'), ('patient', 'Patient'), ('doctor', 'Doctor')],
+                         default=None)
     submit = SubmitField('Register')
 
     def check_email(self, field):
@@ -44,7 +45,9 @@ class PatientProfileForm(FlaskForm):
     date_of_birth = DateField('Date of Birth: ', validators=[DataRequired()])
     treatment = BooleanField('Have you take any treatment before?')
     about_treatment = TextAreaField('If Checked', render_kw={'rows': 4, 'cols': 50}, validators=[DataRequired()])
-    info_choice = RadioField('How do you know about this Application?', choices=[('family', 'By family/friends'), ('social', 'By social media'), ('others', 'Others')])
+    info_choice = RadioField('How do you know about this Application?',
+                             choices=[('family', 'By family/friends'), ('social', 'By social media'),
+                                      ('others', 'Others')])
     others = StringField('If others')
     submit = SubmitField('Submit')
 
@@ -57,9 +60,12 @@ class DoctorProfileForm(FlaskForm):
     phone_number = TelField('Phone number', validators=[DataRequired()])
     nickname = StringField('Nickname', validators=[DataRequired()])
     gender = RadioField('Gender', choices=[('male', 'Male'), ('female', 'Female')], default='male')
+    specialization = StringField('Specialization', validators=[DataRequired()])
     date_of_birth = DateField('Date of Birth: ', validators=[DataRequired()])
     rmp_number = StringField('RMP Number', validators=[DataRequired()])
     certificate_file = FileField('Upload your RPM Certificate', validators=[DataRequired()])
-    info_choice = RadioField('How do you know about this Application?', choices=[('family', 'By family/friends'), ('social', 'By social media'), ('others', 'Others')])
+    info_choice = RadioField('How do you know about this Application?',
+                             choices=[('family', 'By family/friends'), ('social', 'By social media'),
+                                      ('others', 'Others')])
     others = StringField('If others')
     submit = SubmitField('Submit')

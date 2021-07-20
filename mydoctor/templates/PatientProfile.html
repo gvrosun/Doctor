@@ -4,13 +4,13 @@
 <head>
     <title>Patient Info</title>
 </head>
-
-	<div class="body1 container-fluid px-1 py-5 mx-auto">
+<div class="header">
+	<div class="container-fluid px-1 py-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
             <h3>Patient Profile</h3>
             <div class="card">
-                <h5 class="text-center mb-4">Powering world-class companies</h5>
+                <h5 class="text-center mb-4">Please fill your personal details</h5>
                 <form class="form-card" method="post">
                     {{ form.hidden_tag() }}
                     <div class="row justify-content-between text-left">
@@ -58,6 +58,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 {% endblock %}

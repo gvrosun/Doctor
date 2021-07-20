@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "key_for_doctor_project"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), './uploads/')
 
 db = SQLAlchemy(app)
 Migrate(app, db)
