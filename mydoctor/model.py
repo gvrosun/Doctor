@@ -44,6 +44,22 @@ class Patient(db.Model):
     others = db.Column(db.String, nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    def __init__(self, first_name, last_name, address, zip_code, phone_number, nickname, gender, date_of_birth, treatment, about_treatment, info_choice, others, patient_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.address = address
+        self.zip_code = zip_code
+        self.phone_number = zip_code
+        self.phone_number = phone_number
+        self.nickname = nickname
+        self.gender = gender
+        self.date_of_birth = date_of_birth
+        self.treatment = treatment
+        self.about_treatment = about_treatment
+        self.info_choice = info_choice
+        self.others = others
+        self.patient_id = patient_id
+
 
 class Doctor(db.Model):
     __tablename__ = 'doctor'
@@ -61,3 +77,19 @@ class Doctor(db.Model):
     info_choice = db.Column(db.String, nullable=False)
     others = db.Column(db.String, nullable=False)
     doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def __init__(self, first_name, last_name, address, zip_code, phone_number, nickname, gender, date_of_birth, specialization, rmp_number, info_choice, others, doctor_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.address = address
+        self.zip_code = zip_code
+        self.phone_number = zip_code
+        self.phone_number = phone_number
+        self.nickname = nickname
+        self.gender = gender
+        self.date_of_birth = date_of_birth
+        self.specialization = specialization
+        self.rmp_number = rmp_number
+        self.info_choice = info_choice
+        self.others = others
+        self.doctor_id = doctor_id

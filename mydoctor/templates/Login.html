@@ -70,6 +70,7 @@
                 <label for="password">{{ form.password.label }}</label>
                   {{ form.password(class="form-control", placeholder="Enter your passsword") }}
               </div>
+            {{ form.remember() }} {{ form.remember.label }}
                 {{ form.submit(class="btn btn-block user-login-btn") }}
             </form>
             <a href="#" class="forgot-password-link">Forgot password?</a>

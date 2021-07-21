@@ -8,6 +8,7 @@ from mydoctor.model import User
 class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired(), Length(min=5, max=35)])
     password = PasswordField('Password', validators=[DataRequired()])
+    remember = BooleanField('Remember me')
     submit = SubmitField('Login')
 
 

@@ -10,13 +10,44 @@
   <div class="hero-text">
     <h1 style="font-size:50px">Welcome To DoctorX</h1>
       {% if current_user.is_authenticated %}
-        <a type="button"  href="{{ url_for('logout') }}">Logout</a>
+        <a style="color: black;" type="button"  href="{{ url_for('logout') }}">Logout</a>
       {% else %}
-        <a type="button"  href="{{ url_for('login') }}">Sign In</a>&emsp;&emsp;
-        <a type="button" href="{{ url_for('register') }}">Sign Up</a>
+        <a style="color: black;" type="button"  href="{{ url_for('login') }}">Sign In</a>&emsp;&emsp;
+        <a style="color: black;" type="button" href="{{ url_for('register') }}">Sign Up</a>
+
       {% endif %}
   </div>
 </div>
 
+<!--contact form beginning-->
+<div class="container-fluid" id="contact">
+  <div style="text-align:center">
+    <h2>Contact Us</h2>
+    <p>Swing by for a cup of coffee, or leave us a message:</p>
+  </div>
+  <div class="row">
+    <div class="column">
+      <img src="../static/images/india.JPG" style="width:100%">
+    </div>
+    <div class="column">
+      <form method="post">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+<!--contact form ending-->
 
 {% endblock %}

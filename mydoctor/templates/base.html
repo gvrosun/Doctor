@@ -37,47 +37,49 @@
 
 
 </head>
-<body>
+<body style="padding-top: 50px;">
 <!-- Navbar -->
-<div class="w3-top">
-  <div class="w3-bar w3-black w3-card">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Home</a>
-    <a href="#About" class="w3-bar-item w3-button w3-padding-large w3-hide-small">About</a>
-    <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Tour</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Contact</a>
-    <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">More <i class="fa fa-caret-down"></i></button>
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#" class="w3-bar-item w3-button">Merchandise</a>
-        <a href="#" class="w3-bar-item w3-button">Extras</a>
-        <a href="#" class="w3-bar-item w3-button">Media</a>
-      </div>
-    </div>
-      {% if current_user.is_authenticated %}
-            <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="{{ url_for('index') }}">
+      <img src="../static/images/DoctorX_blk-tran.png" width="40" height="40">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('find_profile') }}">Profile</a>
+      </li>
+{#      <li class="nav-item dropdown">#}
+{#        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#          Profile#}
+{#        </a>#}
+{#        <div style="background-color: #282525;" class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+{#          <a class="dropdown-item" href="{{ url_for('doctor_profile') }}">Doctor</a>#}
+{#          <a class="dropdown-item" href="{{ url_for('patient_profile') }}">Patient</a>#}
+{#          <div class="dropdown-divider"></div>#}
+{#          <a class="dropdown-item" href="#">Something else here</a>#}
+{#        </div>#}
+{#      </li>#}
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        {% if current_user.is_authenticated %}
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
         {% else %}
-            <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Sign Up</a>
-            <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Sign In</a>
+            <a class="nav-link" href="{{ url_for('login') }}">Sign in</a>
+            <a class="nav-link" href="{{ url_for('register') }}">Sign up</a>
         {% endif %}
-
-    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+    </form>
   </div>
-</div>
-
-<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-  <a href="#About" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">About</a>
-    {% if current_user.is_authenticated %}
-        <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Logout</a>
-      {% else %}
-        <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Sign in</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Sign Up</a>
-    {% endif %}
-
-  <a href="#tour" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Tour</a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Contact</a>
-</div>
+</nav>
 
 {% block content %}
 
