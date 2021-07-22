@@ -70,3 +70,17 @@ class DoctorProfileForm(FlaskForm):
                                       ('others', 'Others')])
     others = StringField('If others')
     submit = SubmitField('Submit')
+
+
+class Contact(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = EmailField('Email', validators=[DataRequired()])
+    subject = TextAreaField('Subject', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class Profile(FlaskForm):
+    first_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('Last name', validators=[DataRequired()])
+    location = StringField('Location', validators=[DataRequired()])
+    submit = SubmitField('Update Profile')

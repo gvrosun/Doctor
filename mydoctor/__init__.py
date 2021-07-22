@@ -3,6 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_mail import Mail
 
 login_manager = LoginManager()
 basedir = os.path.dirname(__file__)
@@ -14,6 +15,10 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.realpath(__fi
 
 db = SQLAlchemy(app)
 Migrate(app, db)
+mail = Mail(app)
 
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+login_manager.refresh_view = 'login'
+login_manager.needs_refresh_message = "Session timeout, please re-login"
+login_manager.needs_refresh_message_category = "info"

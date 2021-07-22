@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+{#body{#}
+{#    background-image: url("../static/images/Error-403-Forbidden.gif");#}
+{#    background-repeat: no-repeat;#}
+{#    background-size: cover;#}
+{#}#}
+html,body {
+    background: url("../static/images/403.gif") no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+}
+</style>
+
+{% endblock %}

@@ -1,10 +1,24 @@
 
 <head>
   <title>DoctorX | HOME</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 {% extends "base.html" %}
 {% block content %}
+
+
+<style>
+    contact{
+        background-color: #c7c7c7;
+    }
+    h3{
+        text-align: left;
+    }
+</style>
 
 <div class="hero-image">
   <div class="hero-text">
@@ -19,35 +33,36 @@
   </div>
 </div>
 
-<!--contact form beginning-->
-<div class="container-fluid" id="contact">
-  <div style="text-align:center">
-    <h2>Contact Us</h2>
-    <p>Swing by for a cup of coffee, or leave us a message:</p>
-  </div>
-  <div class="row">
-    <div class="column">
-      <img src="../static/images/india.JPG" style="width:100%">
+<!-- Contact Container -->
+<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+  <div class="w3-row">
+    <div class="w3-col m5">
+    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
+      <h3>Address</h3>
+      <p>Swing by for a cup of coffee, or whatever.</p>
+      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Chicago, US</p>
+      <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +00 1515151515</p>
+      <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  test@test.com</p>
     </div>
-    <div class="column">
-      <form method="post">
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-        <label for="country">Country</label>
-        <select id="country" name="country">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-        </select>
-        <label for="subject">Subject</label>
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
-        <input type="submit" value="Submit">
+    <div class="w3-col m7">
+      <form class="w3-container w3-card-4 w3-padding-16 w3-white" method="post">
+      <div class="w3-section">
+        <label>{{ form.name.label }}</label> {{ form.name(class="form-control") }}
+      </div>
+      <div class="w3-section">
+        <label>{{ form.email.label }}</label> {{ form.email(class="form-control") }}
+      </div>
+      <div class="w3-section">
+        <label>{{ form.subject.label }}</label> {{ form.subject(class="form-control") }}
+      </div>
+{#          {{ form.submit(class='btn btn-dark w3-right') }}#}
+      <button type="submit" class="w3-button w3-right w3-theme">Send</button>
       </form>
     </div>
   </div>
 </div>
-<!--contact form ending-->
+
+    <!--contact form ending-->
+
 
 {% endblock %}
