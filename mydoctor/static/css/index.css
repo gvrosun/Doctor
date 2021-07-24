@@ -11,7 +11,8 @@ body, html {
 
 .hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../images/wall.jpg");
-  height: 100%;
+  width: 100%;
+  min-height: 60%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

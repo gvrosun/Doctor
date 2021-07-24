@@ -20,7 +20,7 @@ class RegistrationForm(FlaskForm):
         EqualTo('confirm')
     ])
     confirm = PasswordField('Repeat Password', validators=[DataRequired()])
-    choice = SelectField(u'WHO YOU ARE', choices=[(None, '-select-'), ('patient', 'Patient'), ('doctor', 'Doctor')],
+    choice = SelectField(u'WHO YOU ARE', choices=[(None, '-WHO YOU ARE?-'), ('patient', 'Patient'), ('doctor', 'Doctor')],
                          default=None)
     submit = SubmitField('Register')
 

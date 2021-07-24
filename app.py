@@ -1,11 +1,16 @@
 from mydoctor import app, db
-from flask import render_template, redirect, request, url_for, flash, session, abort
+from dotenv import load_dotenv
+from flask import render_template, redirect, request, url_for, flash, session, abort, Response
 from flask_login import login_user, login_required, logout_user, current_user
 from mydoctor.model import User, Doctor, Patient
 from werkzeug.utils import secure_filename
 from mydoctor.forms import LoginForm, RegistrationForm, PatientProfileForm, DoctorProfileForm, Contact, Profile
 import os
 from datetime import timedelta
+from twilio.jwt.access_token import AccessToken
+from twilio.jwt.access_token.grants import VideoGrant, ChatGrant
+from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 
 
 @app.before_request
@@ -23,62 +28,73 @@ def index():
     return render_template('index.html', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
+@app.route('/authentication', methods=['GET', 'POST'])
+def auth():
+    login_form = LoginForm()
+    registration_form = RegistrationForm()
     login_success = True
     permission = False
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user.check_password(form.password) and user is not None:
-            session['username'] = user.username
-            session['type'] = user.choice
-            if form.remember.data:
-                login_user(user, remember=True)
+    if login_form.validate_on_submit():
+        if request.form['user_form'] == 'login':
+            user = User.query.filter_by(email=login_form.email.data).first()
+            if user.check_password(login_form.password) and user is not None:
+                session['username'] = user.username
+                session['type'] = user.choice
+                if login_form.remember.data:
+                    login_user(user, remember=True)
+                else:
+                    login_user(user)
+
+                user_details = Patient.query.filter_by(patient_id=current_user.get_id()).first() if session[
+                                                                                                        'type'] == 'patient' else Doctor.query.filter_by(
+                    doctor_id=current_user.get_id()).first()
+                if user_details:
+                    session['profile'] = True
+                    session['name'] = user_details.first_name
+                else:
+                    session['profile'] = False
+
+                return redirect(url_for('find_profile'))
+
             else:
-                login_user(user)
+                login_success = False
+                return render_template('Login.html', form=login_form, permission=permission, login_success=login_success)
 
-            user_details = Patient.query.filter_by(patient_id=current_user.get_id()).first() if session['type'] == 'patient' else Doctor.query.filter_by(doctor_id=current_user.get_id()).first()
-            if user_details:
-                session['profile'] = True
-                session['name'] = user_details.first_name
+        elif request.form['user_form'] == 'register':
+            check_username = registration_form.check_username(registration_form.username)
+            check_email = registration_form.check_email(registration_form.email)
+            if check_username and check_email:
+                user = User(
+                    email=registration_form.email.data,
+                    username=registration_form.username.data,
+                    choice=registration_form.choice.data,
+                    password=registration_form.password.data
+                )
+                db.session.add(user)
+                db.session.commit()
+                return redirect(url_for('login'))
             else:
-                session['profile'] = False
+                if not check_username:
+                    flash('username')
+                if not check_email:
+                    flash('email')
 
-            return redirect(url_for('find_profile'))
+        if request.args.get('next') is not None:
+            permission = True
 
-        else:
-            login_success = False
-            return render_template('Login.html', form=form, permission=permission, login_success=login_success)
-
-    if request.args.get('next') is not None:
-        permission = True
-    return render_template('Login.html', form=form, permission=permission, login_success=login_success)
+    return render_template('Login.html', login_form=login_form, reg_form=registration_form,permission=permission, login_success=login_success, panel=session['user_pref'])
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/login')
+def login():
+    session['user_pref'] = ''
+    return redirect(url_for('auth'))
+
+
+@app.route('/register')
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        check_username = form.check_username(form.username)
-        check_email = form.check_email(form.email)
-        if check_username and check_email:
-            user = User(
-                email=form.email.data,
-                username=form.username.data,
-                choice=form.choice.data,
-                password=form.password.data
-            )
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for('login'))
-        else:
-            if not check_username:
-                flash('username')
-            if not check_email:
-                flash('email')
-
-    return render_template('SignUp.html', form=form)
+    session['user_pref'] = 'right-panel-active'
+    return redirect(url_for('auth'))
 
 
 @app.route('/logout')
@@ -150,7 +166,8 @@ def doctor_profile():
             if form.certificate_file.data:
                 filename = secure_filename(form.certificate_file.data.filename)
                 extension = filename.split('.')[-1]
-                form.certificate_file.data.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{doctor_account_details.username}.{extension}'))
+                form.certificate_file.data.save(
+                    os.path.join(app.config['UPLOAD_FOLDER'], f'{doctor_account_details.username}.{extension}'))
             db.session.add(doctor_details)
             db.session.commit()
             return redirect(url_for('doctor'))
@@ -193,7 +210,9 @@ def find_profile():
 @app.route('/profile/<name>', methods=['GET', 'POST'])
 @login_required
 def profile(name):
-    user_details = Patient.query.filter_by(patient_id=current_user.get_id()).first() if session['type'] == 'patient' else Doctor.query.filter_by(doctor_id=current_user.get_id()).first()
+    user_details = Patient.query.filter_by(patient_id=current_user.get_id()).first() if session[
+                                                                                            'type'] == 'patient' else Doctor.query.filter_by(
+        doctor_id=current_user.get_id()).first()
     form = Profile()
     form.first_name.data = user_details.first_name
     form.last_name.data = user_details.last_name
@@ -225,4 +244,5 @@ def permission_denied(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=80)
+
