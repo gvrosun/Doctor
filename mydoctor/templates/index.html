@@ -1,68 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>DoctorX | HOME</title>
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DoctorX | Home</title>
+{#  <link rel="shortcut icon" href="..static/image/favicon.png" type="image/x-icon">#}
+  <!-- Bootstrap , fonts & icons  -->
+  <link rel="stylesheet" href="../static/Home/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/Home/fonts/icon-font/css/style.css">
+  <link rel="stylesheet" href="../static/Home/fonts/typography-font/typo.css">
+  <link rel="stylesheet" href="../static/Home/fonts/fontawesome-5/css/all.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Plugin'stylesheets  -->
+  <link rel="stylesheet" href="../static/Home/plugins/aos/aos.min.css">
+
+  <!-- Vendor stylesheets  -->
+  <link rel="stylesheet" href="../static/Home/css/main.css">
+  <!-- Custom stylesheet -->
+
+  <style>
+  .button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 30px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  .button:hover {
+    background-color: #555555;
+    color: white;
+    border: 2px solid #555555;
+  }
+
+  </style>
+
+
 </head>
 
-{% extends "base.html" %}
-{% block content %}
+<body data-theme-mode-panel-active data-theme="light" style="font-family: 'Mazzard H';">
+  <div class="site-wrapper overflow-hidden position-relative">
+    <!-- Site Header -->
+    <!-- Preloader -->
+    <div id="loading">
+    <div class="preloader">
+     <img src="../static/Home/image/preloader.gif" alt="preloader">
+   </div>
+   </div>
+    <!--Site Header Area -->
+    <header class="site-header site-header--menu-right landing-13-menu site-header--absolute site-header--sticky">
+      <div class="container">
+        <nav class="navbar site-navbar">
+          <!-- Brand Logo-->
+          <div class="brand-logo">
+            <a href="#">
+              <!-- light version logo (logo must be black)-->
+              <img src="../static/images/DoctorX_blk-tran.png" alt="" class="light-version-logo" width="25%">
 
+            </a>
+          </div>
+          <div class="menu-block-wrapper">
+            <div class="menu-overlay"></div>
+            <nav class="menu-block" id="append-menu-header">
+              <div class="mobile-menu-head">
+                <div class="go-back">
+                  <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="current-menu-title"></div>
+                <div class="mobile-menu-close">&times;</div>
+              </div>
+              <ul class="site-menu-main">
+                <li class="nav-item nav-item-has-children">
+                  <a href="#" class="nav-link-item drop-trigger">Dropdowns <i class="fas fa-angle-down"></i>
+                  </a>
+                  <ul class="sub-menu" id="submenu-9">
+                    <li class="sub-menu--item">
+                      <a href="#">Dropdown 01</a>
+                    </li>
+                    <li class="sub-menu--item">
+                      <a href="#">Dropdown 02</a>
+                    </li>
+                    <li class="sub-menu--item">
+                      <a href="#">Dropdown 03</a>
+                    </li>
+                    <li class="sub-menu--item">
+                      <a href="#">Dropdown 04</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link-item">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://uxtheme.net/product-support/" class="nav-link-item">Support</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="header-btn header-btn-l-13 ms-auto d-none d-xs-inline-flex">
+            <a class="btn btn download-btn focus-reset" href="{{ url_for('login') }}">
+              Register / Sign In Now
+            </a>
+          </div>
+          <!-- mobile menu trigger -->
+          <div class="mobile-menu-trigger">
+            <span></span>
+          </div>
+          <!--/.Mobile Menu Hamburger Ends-->
+        </nav>
+      </div>
+    </header>
+    <!-- navbar- -->
+    <!-- Hero Area -->
+    <div class="hero-area-l-13 position-relative overflow-hidden">
+      <div class="container">
+        <div class="row position-relative justify-content-center">
+          <div class="col-xl-6 col-lg-6 col-sm-9" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
+            <div class="banner-image-l-13">
+              <img src="../static/Home/image/l3/doctor.png" alt="" class="w-100">
+            </div>
+          </div>
+          <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-8 col-sm-9" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
+            <div class="content">
+              <h1>Welcome To DoctorX</h1>
+              <p>Skip the travel! Take Online Doctor Consultation</p>
+              <div class="apps-btn home-btn-center">
+                 <div class="w3-third w3-margin-bottom">
+                      <a href="{{ url_for('login') }}"><ul class="w3-ul w3-center ">
+                          <li class="button">Sign In</li>
+                      </ul></a>
+                </div>
 
-<style>
-    contact{
-        background-color: #c7c7c7;
-    }
-    h3{
-        text-align: left;
-    }
-</style>
-
-<div class="flex hero-image" style="height:100%;">
-  <div class="hero-text">
-    <h1 style="font-size:50px">Welcome To DoctorX</h1>
-      {% if current_user.is_authenticated %}
-        <a style="color: black;" type="button"  href="{{ url_for('logout') }}">Logout</a>
-      {% else %}
-        <a style="color: black;" type="button"  href="{{ url_for('login') }}">Sign In</a>&emsp;&emsp;
-        <a style="color: black;" type="button" href="{{ url_for('register') }}">Sign Up</a>
-
-      {% endif %}
-  </div>
-</div>
-
-<!-- Contact Container -->
-<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-  <div class="w3-row">
-    <div class="w3-col m5">
-    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
-      <h3>Address</h3>
-      <p>Swing by for a cup of coffee, or whatever.</p>
-      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Chicago, US</p>
-      <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +00 1515151515</p>
-      <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  test@test.com</p>
+                <div class="w3-third w3-margin-bottom">                
+                      <a href="{{ url_for('register') }}"><ul class="w3-ul w3-center ">
+                          <li class="button">Sign Up</li>
+                      </ul></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-shape-13"></div>
     </div>
-    <div class="w3-col m7">
-      <form class="w3-container w3-card-4 w3-padding-16 w3-white" method="post">
-      <div class="w3-section">
-        <label>{{ form.name.label }}</label> {{ form.name(class="form-control") }}
+    <!-- content-1 section start -->
+    <div class="content-area-l-13-1 position-relative overflow-hidden">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="border-bottom">
+              <div class="row justify-content-center">
+                <div class="col-xl-11">
+                  <div class="row align-items-center justify-content-center justify-content-lg-start">
+                    <div class="offset-lg-1 col-lg-5  col-md-8 col-sm-10 order-lg-1 order-1" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
+                      <div class="content section-heading-7">
+                        <h2>Build Beautiful
+                          Landing Pages</h2>
+                        <p>Create custom landing pages with Shades that convert
+                          more visitors than any website, no coding required.</p>
+                      </div>
+                    </div>
+                    <div class="offset-lg-1 col-lg-5 col-md-8 col-sm-10 position-relative order-lg-1 order-0" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
+                      <div class="app-image-position-l-13">
+                        <img src="../static/Home/image/l3/content-img-11.png" alt="" class="w-100">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="w3-section">
-        <label>{{ form.email.label }}</label> {{ form.email(class="form-control") }}
-      </div>
-      <div class="w3-section">
-        <label>{{ form.subject.label }}</label> {{ form.subject(class="form-control") }}
-      </div>
-{#          {{ form.submit(class='btn btn-dark w3-right') }}#}
-      <button type="submit" class="w3-button w3-right w3-theme">Send</button>
-      </form>
     </div>
+    <!-- content-1 section start -->
+    <div class="content-area-l-13-2 position-relative overflow-hidden">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="border-bottom">
+              <div class="row justify-content-center">
+                <div class="col-xl-11">
+                  <div class="row align-items-center justify-content-center justify-content-lg-start">
+                    <div class="col-lg-6  col-md-8 col-sm-10" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
+                      <div class="app-image-position-l-13">
+                        <img src="../static/Home/image/l3/content-img-22.png" alt="" class="w-100">
+                      </div>
+                    </div>
+                    <div class="offset-lg-1 col-lg-5 col-md-8 col-sm-10 position-relative" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
+                      <div class="content section-heading-7">
+                        <h2>Build Beautiful
+                          Landing Pages</h2>
+                        <p>Create custom landing pages with Shades that convert
+                          more visitors than any website, no coding required.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content-3 section start -->
+    <div class="content-area-l-13-3 position-relative overflow-hidden">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="border-bottom">
+              <div class="row justify-content-center">
+                <div class="col-xl-11">
+                  <div class="row align-items-center justify-content-center justify-content-lg-start">
+                    <div class="offset-lg-1 col-lg-5  col-md-8 col-sm-10 order-lg-1 order-1" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
+                      <div class="content section-heading-7">
+                        <h2>Build Beautiful
+                          Landing Pages</h2>
+                        <p>Create custom landing pages with Shades that convert
+                          more visitors than any website, no coding required.</p>
+                      </div>
+                    </div>
+                    <div class="offset-lg-1 col-lg-5 col-md-8 col-sm-10 position-relative order-lg-1 order-0" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
+                      <div class="app-image-position-l-13">
+                        <img src="../static/Home/image/l3/content-img-33.png" alt="" class="w-100"><br><br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial section start -->
+    <div class="testimonial-area-l-13 position-relative overflow-hidden z-index-1">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-11">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="section-heading-7 text-center">
+                  <h2>Customers are loving Shades</h2>
+                </div>
+              </div>
+            </div>
+            <div class="row testimonial-area-l-13-items justify-content-center" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
+              <div class="col-xl-4 col-md-6 col-sm-8">
+                <div class="testimonial-card bg-white">
+                  <p> “You made it so simple. My new site is so much
+                    faster and easier to work with than my old site. I just choose the page, make the change and click save.
+                  </p>
+                  <div class="d-flex customer-identity">
+                    <div class="customer-img ">
+                      <img src="../static/Home/image/l3/client-img-2.png" alt="">
+                    </div>
+                    <div class="content-body">
+                      <h5>Cameron Anderson</h5>
+                      <p>Designer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 col-sm-8">
+                <div class="testimonial-card bg-white">
+                  <p>“You made it so simple. My new site is so much
+                    faster and easier to work with than my old site. I just choose the page, make the change and click save.
+                  </p>
+                  <div class="d-flex customer-identity">
+                    <div class="customer-img ">
+                      <img src="../static/Home/image/l3/client-img-2.png" alt="">
+                    </div>
+                    <div class="content-body">
+                      <h5>Cameron Anderson</h5>
+                      <p>Designer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 col-sm-8">
+                <div class="testimonial-card bg-white">
+                  <p> “You made it so simple. My new site is so much
+                    faster and easier to work with than my old site. I just choose the page, make the change and click save.
+                  </p>
+                  <div class="d-flex customer-identity">
+                    <div class="customer-img ">
+                      <img src="../static/Home/image/l3/client-img-2.png" alt="">
+                    </div>
+                    <div class="content-body">
+                      <h5>Cameron Anderson</h5>
+                      <p>Designer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 col-sm-8">
+                <div class="testimonial-card bg-white">
+                  <p> “You made it so simple. My new site is so much
+                    faster and easier to work with than my old site. I just choose the page, make the change and click save.
+                  </p>
+                  <div class="d-flex customer-identity">
+                    <div class="customer-img ">
+                      <img src="../static/Home/image/l3/client-img-2.png" alt="">
+                    </div>
+                    <div class="content-body">
+                      <h5>Cameron Anderson</h5>
+                      <p>Designer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 col-sm-8">
+                <div class="testimonial-card bg-white">
+                  <p> “You made it so simple. My new site is so much
+                    faster and easier to work with than my old site. I just choose the page, make the change and click save.
+                  </p>
+                  <div class="d-flex customer-identity">
+                    <div class="customer-img ">
+                      <img src="../static/Home/image/l3/client-img-2.png" alt="">
+                    </div>
+                    <div class="content-body">
+                      <h5>Cameron Anderson</h5>
+                      <p>Designer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 col-sm-8">
+                <div class="testimonial-card bg-white">
+                  <p> “You made it so simple. My new site is so much
+                    faster and easier to work with than my old site. I just choose the page, make the change and click save.
+                  </p>
+                  <div class="d-flex customer-identity">
+                    <div class="customer-img ">
+                      <img src="../static/Home/image/l3/client-img-2.png" alt="">
+                    </div>
+                    <div class="content-body">
+                      <h5>Cameron Anderson</h5>
+                      <p>Designer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-shape-3"></div>
+    </div>
+    <!-- CTA-area start -->
+    <div class="cta-area-l-13" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-12">
+            <div class="row justify-content-center">
+              <div class="col-xxl-7 col-xl-8 text-center">
+                <div class="content">
+                  <span class="tagline">Time to take action</span>
+                  <h2>Join over 30,000+ happy users & launch your product fast.</h2>
+                  <div class="apps-btn">
+                    <a href="#" class="app-store"><img src="../static/Home/image/l3/app-store.png" alt=""></a>
+                    <a href="#" class="app-store"><img src="../static/Home/image/l3/google-play.png" alt=""></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Area -->
+    <footer class="footer-l-13 text-center text-md-start">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="footer-border-l-13"></div>
+          </div>
+        </div>
+        <div class="row footer-l-13-items">
+          <div class="col-md-3">
+            <div class="footer-logo-l-13">
+              <a href="#"><img src="../static/Home/image/logo/logo-black.png" alt="logo"></a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="footer-widget-l-13">
+              <ul class="pl-0 list-unstyled d-flex flex-wrap justify-content-center align-items-end ">
+                <li class="d-flex"><a href="">About</a></li>
+                <li class="d-flex"><a href="">Features</a></li>
+                <li class="d-flex"><a href="">Works</a></li>
+                <li class="d-flex"><a href="">Career</a></li>
+                <li class="d-flex"><a href="">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="copyright-area-l-13 text-center text-md-right">
+              <p>© Grayic 2021 All right reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
-</div>
+  <!-- Vendor Scripts -->
+  <script src="../static/Home/js/vendor.min.js"></script>
+  <script src="../static/Home/plugins/aos/aos.min.js"></script>
+  <script src="../static/Home/plugins/menu/menu.js"></script>
+  <!-- Activation Script -->
+  <script src="../static/Home/js/custom.js"></script>
+</body>
 
-    <!--contact form ending-->
-
-
-{% endblock %}
+</html>

@@ -1,6 +1,6 @@
 from mydoctor import app, db
 from dotenv import load_dotenv
-from flask import render_template, redirect, request, url_for, flash, session, abort, Response
+from flask import render_template, redirect, request, url_for, flash, session, abort, Response, get_flashed_messages
 from flask_login import login_user, login_required, logout_user, current_user
 from mydoctor.model import User, Doctor, Patient
 from werkzeug.utils import secure_filename
@@ -32,12 +32,11 @@ def index():
 def auth():
     login_form = LoginForm()
     registration_form = RegistrationForm()
-    login_success = True
-    permission = False
     if login_form.validate_on_submit():
         if request.form['user_form'] == 'login':
             user = User.query.filter_by(email=login_form.email.data).first()
-            if user.check_password(login_form.password) and user is not None:
+            if user and user.check_password(login_form.password):
+                flash('login_success')
                 session['username'] = user.username
                 session['type'] = user.choice
                 if login_form.remember.data:
@@ -57,8 +56,10 @@ def auth():
                 return redirect(url_for('find_profile'))
 
             else:
-                login_success = False
-                return render_template('Login.html', form=login_form, permission=permission, login_success=login_success)
+                flash('login_failed')
+                session['user_pref'] = ''
+                return render_template('Login.html', login_form=login_form, reg_form=registration_form,
+                                       panel=session['user_pref'])
 
         elif request.form['user_form'] == 'register':
             check_username = registration_form.check_username(registration_form.username)
@@ -73,16 +74,18 @@ def auth():
                 db.session.add(user)
                 db.session.commit()
                 return redirect(url_for('login'))
+
             else:
                 if not check_username:
                     flash('username')
                 if not check_email:
                     flash('email')
+                session['user_pref'] = 'right-panel-active'
 
-        if request.args.get('next') is not None:
-            permission = True
+    if request.args.get('next') is not None:
+        flash('denied')
 
-    return render_template('Login.html', login_form=login_form, reg_form=registration_form,permission=permission, login_success=login_success, panel=session['user_pref'])
+    return render_template('Login.html', login_form=login_form, reg_form=registration_form, panel=session['user_pref'])
 
 
 @app.route('/login')

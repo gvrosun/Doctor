@@ -18,7 +18,7 @@ Migrate(app, db)
 mail = Mail(app)
 
 login_manager.init_app(app)
-login_manager.login_view = 'login'
-login_manager.refresh_view = 'login'
+login_manager.login_view = 'auth'
+login_manager.refresh_view = 'auth'
 login_manager.needs_refresh_message = "Session timeout, please re-login"
 login_manager.needs_refresh_message_category = "info"
