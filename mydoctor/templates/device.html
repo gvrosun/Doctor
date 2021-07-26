@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %} <br><br>
+  <p>Template: <strong>index.html</strong></p>
+  <p>
+    request.MOBILE:
+    <strong>{% if request.MOBILE %}True{% else %}False{% endif %}</strong>
+  </p>
+{% endblock %}

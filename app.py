@@ -4,7 +4,7 @@ from flask import render_template, redirect, request, url_for, flash, session, a
 from flask_login import login_user, login_required, logout_user, current_user
 from mydoctor.model import User, Doctor, Patient
 from werkzeug.utils import secure_filename
-from mydoctor.forms import LoginForm, RegistrationForm, PatientProfileForm, DoctorProfileForm, Contact, Profile
+from mydoctor.forms import LoginForm, RegistrationForm, PatientProfileForm, DoctorProfileForm, Contact, Profile, ForgotForm, ChangePasswordForm
 import os
 from datetime import timedelta
 from twilio.jwt.access_token import AccessToken
@@ -73,6 +73,7 @@ def auth():
                 )
                 db.session.add(user)
                 db.session.commit()
+                flash('register_success')
                 return redirect(url_for('login'))
 
             else:
@@ -90,13 +91,13 @@ def auth():
 
 @app.route('/login')
 def login():
-    session['user_pref'] = ''
+    session['user_pref'] = ['', 'checked', '', "0%"]
     return redirect(url_for('auth'))
 
 
 @app.route('/register')
 def register():
-    session['user_pref'] = 'right-panel-active'
+    session['user_pref'] = ['right-panel-active', '', 'checked', "-50%"]
     return redirect(url_for('auth'))
 
 
@@ -105,6 +106,24 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/forgot', methods=['GET', 'POST'])
+def forgot():
+    form = ForgotForm()
+    if form.validate_on_submit():
+        return redirect(url_for('change_password'))
+    return render_template('forgot_password.html', form=form)
+
+
+@app.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        flash('Password_changed')
+        return redirect(url_for('login'))
+
+    return render_template('change_password.html', form=form)
 
 
 @app.route('/patient_profile', methods=['GET', 'POST'])
@@ -244,6 +263,11 @@ def error():
 @app.errorhandler(403)
 def permission_denied(e):
     return render_template('403.html'), 403
+
+
+@app.route('/device')
+def device():
+    return render_template('device.html')
 
 
 if __name__ == '__main__':

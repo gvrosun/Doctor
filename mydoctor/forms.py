@@ -84,3 +84,17 @@ class Profile(FlaskForm):
     last_name = StringField('Last name', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     submit = SubmitField('Update Profile')
+
+
+class ForgotForm(FlaskForm):
+    email = EmailField('Enter your email', validators=[DataRequired()])
+    submit = SubmitField('Reset Password')
+
+
+class ChangePasswordForm(FlaskForm):
+    password = PasswordField('New Password', [
+        DataRequired(),
+        EqualTo('confirm')
+    ])
+    confirm = PasswordField('Repeat Password', validators=[DataRequired()])
+    submit = SubmitField('Change Password')
