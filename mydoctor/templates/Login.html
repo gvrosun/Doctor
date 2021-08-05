@@ -52,6 +52,10 @@
         <div id="alert" class="alert alert-success" role="alert">
           <strong>Password changed successfully</strong> Login with new password...
         </div>
+    {% elif message and "forgot" in message %}
+        <div id="alert" class="alert alert-warning" role="alert">
+          <strong>Account not found!</strong> Create an account first...
+        </div>
     {% elif message and "denied" in message %}
         <div id="alert" class="alert alert-warning" role="alert">
             <strong>Permission denied!!!</strong> Login first.

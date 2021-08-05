@@ -26,6 +26,9 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password.data)
 
+    def update_password(self, new_password):
+        self.password_hash = generate_password_hash(new_password)
+
 
 class Patient(db.Model):
     __tablename__ = 'patient'

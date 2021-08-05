@@ -113,11 +113,20 @@
               </ul>
             </nav>
           </div>
+            {% if current_user.is_authenticated %}
+                <div class="header-btn header-btn-l-13 ms-auto d-none d-xs-inline-flex">
+            <a class="btn btn download-btn focus-reset" href="{{ url_for('logout') }}">
+              Sign out
+            </a>
+          </div>
+                {% else %}
           <div class="header-btn header-btn-l-13 ms-auto d-none d-xs-inline-flex">
             <a class="btn btn download-btn focus-reset" href="{{ url_for('login') }}">
               Register / Sign In Now
             </a>
           </div>
+            {% endif %}
+
           <!-- mobile menu trigger -->
           <div class="mobile-menu-trigger">
             <span></span>
@@ -138,8 +147,13 @@
           </div>
           <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-8 col-sm-9" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
             <div class="content">
-              <h1>Welcome To DoctorX</h1>
+            {% if current_user.is_authenticated %}
+              <h1>DoctorX welcomes you {{ current_user.username }}!</h1>
+            {% else %}
+                <h1>Welcome To DoctorX</h1>
+            {% endif %}
               <p>Skip the travel! Take Online Doctor Consultation</p>
+               {% if not current_user.is_authenticated %}
               <div class="apps-btn home-btn-center">
                  <div class="w3-third w3-margin-bottom">
                       <a href="{{ url_for('login') }}"><ul class="w3-ul w3-center ">
@@ -153,6 +167,7 @@
                       </ul></a>
                 </div>
               </div>
+                {% endif %}
             </div>
           </div>
         </div>

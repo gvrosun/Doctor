@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField, StringField, RadioField, BooleanField, TextAreaField, SelectField, \
-    FileField, EmailField, DateField, TelField
+    FileField, EmailField, DateField, TelField, IntegerField
 from wtforms.validators import DataRequired, EqualTo, Length, regexp
 from mydoctor.model import User
 
@@ -92,6 +92,7 @@ class ForgotForm(FlaskForm):
 
 
 class ChangePasswordForm(FlaskForm):
+    otp = IntegerField('OTP', validators=[DataRequired()])
     password = PasswordField('New Password', [
         DataRequired(),
         EqualTo('confirm')

@@ -1,16 +1,18 @@
-from mydoctor import app, db
-from dotenv import load_dotenv
+from mydoctor import app, db, mail
+# from dotenv import load_dotenv
 from flask import render_template, redirect, request, url_for, flash, session, abort, Response, get_flashed_messages
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_mail import Mail, Message
 from mydoctor.model import User, Doctor, Patient
 from werkzeug.utils import secure_filename
 from mydoctor.forms import LoginForm, RegistrationForm, PatientProfileForm, DoctorProfileForm, Contact, Profile, ForgotForm, ChangePasswordForm
 import os
 from datetime import timedelta
-from twilio.jwt.access_token import AccessToken
-from twilio.jwt.access_token.grants import VideoGrant, ChatGrant
-from twilio.rest import Client
-from twilio.base.exceptions import TwilioRestException
+import random
+# from twilio.jwt.access_token import AccessToken
+# from twilio.jwt.access_token.grants import VideoGrant, ChatGrant
+# from twilio.rest import Client
+# from twilio.base.exceptions import TwilioRestException
 
 
 @app.before_request
@@ -112,18 +114,37 @@ def logout():
 def forgot():
     form = ForgotForm()
     if form.validate_on_submit():
-        return redirect(url_for('change_password'))
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            session['otp'] = random.randint(100000, 999999)
+            msg = Message(
+                'DoctorX Forgot password',
+                recipients=[form.email.data]
+            )
+            msg.html = f"<h3>Your OTP</h3><br><h1>{session['otp']}</h1>"
+            mail.send(msg)
+            return redirect(url_for('change_password', email=form.email.data))
+        else:
+            flash('forgot')
+            return redirect(url_for('register'))
     return render_template('forgot_password.html', form=form)
 
 
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     form = ChangePasswordForm()
+    email = request.args.get('email')
     if form.validate_on_submit():
-        flash('Password_changed')
-        return redirect(url_for('login'))
+        if form.otp.data == session['otp']:
+            user = User.query.filter_by(email=email).first()
+            user.update_password(form.password.data)
+            db.session.commit()
+            flash('Password_changed')
+            return redirect(url_for('login'))
+        else:
+            flash('invalid_otp')
 
-    return render_template('change_password.html', form=form)
+    return render_template('change_password.html', form=form, otp=session['otp'])
 
 
 @app.route('/patient_profile', methods=['GET', 'POST'])
@@ -268,6 +289,12 @@ def permission_denied(e):
 @app.route('/device')
 def device():
     return render_template('device.html')
+
+
+@app.route('/send')
+def send_mail():
+
+    return 'mail sent'
 
 
 if __name__ == '__main__':
