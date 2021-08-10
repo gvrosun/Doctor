@@ -1,18 +1,16 @@
 from mydoctor import app, db, mail
-# from dotenv import load_dotenv
-from flask import render_template, redirect, request, url_for, flash, session, abort, Response, get_flashed_messages
+from flask import render_template, redirect, request, \
+    url_for, flash, session, abort
 from flask_login import login_user, login_required, logout_user, current_user
-from flask_mail import Mail, Message
+from flask_mail import Message
 from mydoctor.model import User, Doctor, Patient
 from werkzeug.utils import secure_filename
-from mydoctor.forms import LoginForm, RegistrationForm, PatientProfileForm, DoctorProfileForm, Contact, Profile, ForgotForm, ChangePasswordForm
+from mydoctor.forms import LoginForm, \
+    RegistrationForm, PatientProfileForm, DoctorProfileForm, \
+    Contact, Profile, ForgotForm, ChangePasswordForm
 import os
 from datetime import timedelta
 import random
-# from twilio.jwt.access_token import AccessToken
-# from twilio.jwt.access_token.grants import VideoGrant, ChatGrant
-# from twilio.rest import Client
-# from twilio.base.exceptions import TwilioRestException
 
 
 @app.before_request
@@ -46,9 +44,12 @@ def auth():
                 else:
                     login_user(user)
 
-                user_details = Patient.query.filter_by(patient_id=current_user.get_id()).first() if session[
-                                                                                                        'type'] == 'patient' else Doctor.query.filter_by(
+                user_details = Patient.query.filter_by(
+                    patient_id=current_user.get_id()).first() \
+                    if session['type'] == 'patient' \
+                    else Doctor.query.filter_by(
                     doctor_id=current_user.get_id()).first()
+
                 if user_details:
                     session['profile'] = True
                     session['name'] = user_details.first_name
@@ -253,9 +254,13 @@ def find_profile():
 @app.route('/profile/<name>', methods=['GET', 'POST'])
 @login_required
 def profile(name):
-    user_details = Patient.query.filter_by(patient_id=current_user.get_id()).first() if session[
-                                                                                            'type'] == 'patient' else Doctor.query.filter_by(
+    print(name)
+    user_details = Patient.query.filter_by(
+        patient_id=current_user.get_id()).first() \
+        if session['type'] == 'patient' \
+        else Doctor.query.filter_by(
         doctor_id=current_user.get_id()).first()
+
     form = Profile()
     form.first_name.data = user_details.first_name
     form.last_name.data = user_details.last_name
@@ -273,7 +278,7 @@ def check():
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template("404.html"), 404
+    return render_template("404.html", error=e), 404
 
 
 @app.route('/error')
@@ -283,7 +288,7 @@ def error():
 
 @app.errorhandler(403)
 def permission_denied(e):
-    return render_template('403.html'), 403
+    return render_template('403.html', error=e), 403
 
 
 @app.route('/device')
@@ -299,4 +304,3 @@ def send_mail():
 
 if __name__ == '__main__':
     app.run(debug=True, port=80)
-
